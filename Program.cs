@@ -11,7 +11,7 @@ namespace GamblingSimulator
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Gambling Simulator");
-            gambling();
+            gamble();
         }
         /// <summary>
         /// UC-2
@@ -24,12 +24,32 @@ namespace GamblingSimulator
             if (n == 1)
             {
                 gamblingMoney += betAmt;
-                Console.WriteLine("won:" + " " + gamblingMoney + " " + moneyAtStart);
             }
             else if (n == 0)
             {
                 gamblingMoney -= betAmt;
-                Console.WriteLine("Lost:" + " " + gamblingMoney + " " + moneyAtStart);
+            }
+        }
+        /// <summary>
+        /// UC-3
+        /// </summary>
+        public static void gamble()
+        {
+            bool flag = true;
+            while (flag)
+            {
+                gambling();
+                if (gamblingMoney == 50)
+                {
+                    flag = false;
+                    Console.WriteLine("Lost the game" + " " + gamblingMoney);
+                }
+                else if (gamblingMoney == 150)
+                {
+                    flag = false;
+                    Console.WriteLine("Win the game" + " " + gamblingMoney);
+
+                }
             }
         }
     }
