@@ -20,12 +20,12 @@ namespace GamblingSimulator
         public static void gambling()
         {
             Random random = new Random();
-            var n = random.Next(0, 2);
-            if (n == 1)
+            var number = random.Next(0, 2);
+            if (number == 1)
             {
                 gamblingMoney += betAmt;
             }
-            else if (n == 0)
+            else if (number == 0)
             {
                 gamblingMoney -= betAmt;
             }
