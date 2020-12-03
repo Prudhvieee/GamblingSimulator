@@ -8,10 +8,16 @@ namespace GamblingSimulator
         private static int moneyAtStart = 100;
         private static int betAmt = 1;
         private static int gamblingMoney = moneyAtStart;
+        private static int winCounter = 0;
+        private static int lossCounter = 0;
+        private static int dayBetCount = 0;
+        private static int lossAmount = 0;
+        private static int profitAmount = 0;
+        private static double stakePercent = 0.50;
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Gambling Simulator");
-            gamble();
+            gameFor20Days();
         }
         /// <summary>
         /// UC-2
@@ -33,23 +39,46 @@ namespace GamblingSimulator
         /// <summary>
         /// UC-3
         /// </summary>
-        public static void gamble()
+        public static int PlayForTheDay()
         {
+            int stakeValue = (int)(stakePercent * moneyAtStart);
+            int winningStake = (int)(moneyAtStart + stakeValue);
+            int losingStake = (int)(moneyAtStart - stakeValue);
             bool flag = true;
             while (flag)
             {
                 gambling();
-                if (gamblingMoney == 50)
+                dayBetCount++;
+                if (gamblingMoney == losingStake)
                 {
+                    lossAmount += gamblingMoney;
                     flag = false;
-                    Console.WriteLine("Lost the game" + " " + gamblingMoney);
+                    winCounter++;
                 }
-                else if (gamblingMoney == 150)
+                else if (gamblingMoney == winningStake)
                 {
+                    profitAmount += gamblingMoney;
                     flag = false;
-                    Console.WriteLine("Win the game" + " " + gamblingMoney);
-
+                    lossCounter++;
                 }
+            }
+            return dayBetCount;
+        }
+        /// <summary>
+        /// UC-4
+        /// method for playing game for 20 days
+        /// </summary>
+        public static void gameFor20Days()
+        {
+            int i = 1;
+            while (i <= 20)
+            {
+                PlayForTheDay();
+                if (i >=20)
+                {
+                    Console.WriteLine($"\nDay {i} \nTotal Profit: { profitAmount} \nTotal Loss:  {lossAmount} \n wins: {winCounter}\n loose : {lossCounter}");
+                }
+                i++;
             }
         }
     }
